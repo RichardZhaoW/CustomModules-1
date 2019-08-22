@@ -30,15 +30,15 @@ inputs:
   description: memory_efficient
 - name: Num of classes
   type: Int
-  default: 257
+  default: 3
   description: num of classes
 - name: Epochs
   type: Int
-  default: 10
+  default: 7
   description: epochs
 - name: Batch size
   type: Int
-  default: 4
+  default: 16
   description: batch_size
 - name: Learning rate
   type: Float
@@ -68,7 +68,8 @@ implementation:
         - scipy==1.2.1
         - https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
         - https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl
-        - git+https://github.com/chjinche/CustomModules-1.git@master#subdirectory=azureml-custom-module-examples/image-classification-densenet
+        - git+https://github.com/StudioCommunity/CustomModules.git@migu/NewYamlTest#subdirectory=builtin-models
+        - git+https://github.com/RichardZhaoW/CustomModules-1.git@master#subdirectory=azureml-custom-module-examples/image-classification-densenet
     command:
     - python
     - -m
