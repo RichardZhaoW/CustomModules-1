@@ -183,6 +183,10 @@ def train(model, train_set, valid_set, test_set, save_path, num_classes, epochs,
             else:
                 torch.save(model.state_dict(), os.path.join(save_path, 'model.pth'))
 
+        from builtin_models.pytorch import save_model
+        save_model(model, save_path, dependencies=['densenet.py'])
+        print(f'MODEL PATH = {save_path}')
+        print(f'MODEL FOLDER = {os.listdir(save_path)}')
         # Log results
         with open(os.path.join(save_path, 'results.csv'), 'a') as f:
             f.write('{:3d},{:.6f},{:.6f},{:.5f},{:.5f},\n'.format(epoch + 1, train_loss,
