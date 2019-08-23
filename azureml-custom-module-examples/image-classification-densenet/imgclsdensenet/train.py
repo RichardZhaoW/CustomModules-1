@@ -191,8 +191,8 @@ def train(model, train_set, valid_set, test_set, save_path, num_classes, epochs,
         for dep in dependencies:
             print(f'{dep} exists: {os.path.exists(dep)}')
         save_model(model, save_path, dependencies=dependencies)
-        print(f'MODEL PATH = {save_path}')
-        print(f'MODEL FOLDER = {os.listdir(save_path)}')
+        print(f'MODEL PATH(OUT) = {save_path}')
+        print(f'MODEL FOLDER(OUT) = {os.listdir(save_path)}')
         # Log results
         with open(os.path.join(save_path, 'results.csv'), 'a') as f:
             f.write('{:3d},{:.6f},{:.6f},{:.5f},{:.5f},\n'.format(epoch + 1, train_loss,
@@ -246,7 +246,9 @@ def entrance(model_path='script/saved_model', data_path='script/dataset/dog_trai
                        pretrained=pretrained, memory_efficient=memory_efficient, classes=num_classes)
 
     os.makedirs(save_path, exist_ok=True)
-    dependencies = [os.path.join(data_path, 'densenet.py')]
+    dependencies = [os.path.join(model_path, 'densenet.py')]
+    print(f'MODEL PATH(IN) = {model_path}')
+    print(f'MODEL FOLDER(IN) = {os.listdir(model_path)}')
     train(model=model, train_set=train_set, valid_set=valid_set, test_set=test_set,
           save_path=save_path, num_classes=num_classes, epochs=epochs,
           batch_size=batch_size, random_seed=random_seed,
