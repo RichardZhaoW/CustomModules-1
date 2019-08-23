@@ -184,8 +184,9 @@ def train(model, train_set, valid_set, test_set, save_path, num_classes, epochs,
                 torch.save(model.state_dict(), os.path.join(save_path, 'model.pth'))
 
         from builtin_models.pytorch import save_model
-        print(f'CURRENT PATH = {os.path.abspath('.')}')
-        print(f'CURRENT FOLDER = {os.listdir('.')}')
+        curr_path = "."
+        print(f'CURRENT PATH = {os.path.abspath(curr_path)}')
+        print(f'CURRENT FOLDER = {os.listdir(curr_path)}')
         save_model(model, save_path) #, dependencies=['densenet.py'])
         print(f'MODEL PATH = {save_path}')
         print(f'MODEL FOLDER = {os.listdir(save_path)}')
