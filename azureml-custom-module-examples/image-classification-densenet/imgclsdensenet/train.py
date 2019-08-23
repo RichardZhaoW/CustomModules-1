@@ -88,7 +88,7 @@ def train_epoch(model, loader, optimizer, epoch, epochs, print_freq=1):
         if torch.cuda.is_available():
             input = input.cuda()
             target = target.cuda()
-
+            model = model.cuda()
         # compute output
         output = model(input)
         loss = torch.nn.functional.cross_entropy(output, target)
