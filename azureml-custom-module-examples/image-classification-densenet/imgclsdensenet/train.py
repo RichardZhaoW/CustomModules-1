@@ -125,7 +125,7 @@ def train_epoch(model, loader, optimizer, epoch, epochs, print_freq=1):
 
 def train(model, train_set, valid_set, test_set, save_path, num_classes, epochs, batch_size,
           lr=0.001, wd=0.0001, momentum=0.9, random_seed=None,
-          model_type='densenet201', memory_efficient=False, label_list=None):
+          model_type='densenet201', memory_efficient=False, label_list=None, dependencies=[]):
     if random_seed is not None:
         if torch.cuda.is_available():
             if torch.cuda.device_count() > 1:
@@ -187,7 +187,10 @@ def train(model, train_set, valid_set, test_set, save_path, num_classes, epochs,
         curr_path = "."
         print(f'CURRENT PATH = {os.path.abspath(curr_path)}')
         print(f'CURRENT FOLDER = {os.listdir(curr_path)}')
-        save_model(model, save_path) #, dependencies=['densenet.py'])
+        print(f'DEPENDENCIES = {dependencies}')
+        for dep in dependencies:
+            print(f'{dep} exists: {os.path.exists(dep)}')
+        save_model(model, save_path, dependencies=dependencies)
         print(f'MODEL PATH = {save_path}')
         print(f'MODEL FOLDER = {os.listdir(save_path)}')
         # Log results
@@ -243,11 +246,11 @@ def entrance(model_path='script/saved_model', data_path='script/dataset/dog_trai
                        pretrained=pretrained, memory_efficient=memory_efficient, classes=num_classes)
 
     os.makedirs(save_path, exist_ok=True)
-
+    dependencies = [os.path.join(data_path, 'densenet.py')]
     train(model=model, train_set=train_set, valid_set=valid_set, test_set=test_set,
           save_path=save_path, num_classes=num_classes, epochs=epochs,
           batch_size=batch_size, random_seed=random_seed,
-          model_type=model_type, memory_efficient=memory_efficient, lr=learning_rate)
+          model_type=model_type, memory_efficient=memory_efficient, lr=learning_rate, dependencies=dependencies)
 
     smt_fake_model(save_path)
     print(f'DATA_PATH: {data_path}')
